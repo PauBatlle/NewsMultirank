@@ -1,6 +1,6 @@
 import pickle
 import tensorflow as tf
-
+cd .
 from prediction.util import *
 
 
