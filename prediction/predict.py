@@ -1,8 +1,8 @@
 import pickle
 import tensorflow as tf
 from util import *
-
-
+from keras.models import load_model
+from keras.backend import clear_session
 def doPredict(body, title):
     # MISLEAD
 
@@ -44,4 +44,13 @@ def doPredict(body, title):
 
         scores, prediction = sess.run([softmaxed_logits, predict], feed_dict=test_feed_dict)
 
-        return scores, interpretation[prediction[0]]
+    
+    clear_session()
+    #Clickbait
+
+    cbmodel = load_model('../Pretrained_models/Clickbaitv3.h5')
+    tfidf = pickle.load(open("tfidf_clickbait.p", "rb"))
+    s = np.array([title])
+    clickbait_score = cbmodel.predict(tfidf.transform(s).todense())[0,0]
+
+    return scores, interpretation[prediction[0]], clickbait_score

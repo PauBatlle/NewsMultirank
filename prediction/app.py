@@ -21,17 +21,20 @@ def main():
 	else:
 		body = body[s:]
 	
-	print(title, body)
+
+	#["Agrees", "Disagrees", "Discusses", "Unrelated"]
+
+
+	print("Title of the new: ", title)
 	#title = request.args['title']
 	#body = request.args.post('body')
-
 	result = doPredict(title, body)
-	return str(result)
+	print("Probabilities: ", result[0])
+	print("Most probable category: ", result[1])
+	print("Clickbaity title? : ", result[2])
 
-	#resp = Response(result, status=200, mimetype='application/json')
-	#return "Hello"
-	#return resp
-	
+	resp = Response(result, status=200, mimetype='application/json')
+	return "resp"
 	#logger.info('This error output', file=sys.stderr)
 	#logger.info(title, file=sys.stdout)
 	#logger.info("Hi", file=sys.stdout)
